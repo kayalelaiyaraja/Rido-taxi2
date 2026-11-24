@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIDO TAXI | Taxi Booking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">R</div>
+            <div>
+                <h2>RIDO <span>TAXI</span></h2>
+                <small>RIDE WITH COMFORT</small>
+            </div>
+        </div>
+
+        <p class="menu-label">MAIN MENU</p>
+
+        <nav>
+            <button class="nav-link active" data-page="dashboard">▦ Dashboard</button>
+            <button class="nav-link" data-page="drivers">♙ Drivers</button>
+            <button class="nav-link" data-page="vehicles">▣ Vehicles</button>
+            <button class="nav-link" data-page="bookings">▤ Bookings</button>
+            <button class="nav-link" data-page="allocation">⇄ Allocation</button>
+            <button class="nav-link" data-page="history">◷ Trip History</button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="support-card">
+                <span>✦</span>
+                <h3>Need assistance?</h3>
+                <p>Manage your rides with ease.</p>
+            </div>
+            <p class="copyright">© 2026 RIDO TAXI</p>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="welcome">WELCOME TO RIDO TAXI</p>
+                <h1 id="page-title">Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <span class="status-dot"></span>
+                <span>System Online</span>
+                <div class="profile">R</div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page active" id="dashboard">
+            <div class="hero">
+                <div>
+                    <span class="hero-tag">YOUR JOURNEY, OUR PRIORITY</span>
+                    <h2>Every ride begins<br>with <span>RIDO.</span></h2>
+                    <p>Smart bookings. Reliable drivers. Comfortable journeys.</p>
+                    <button class="primary-btn" onclick="showPage('bookings')">
+                        + Create New Booking
+                    </button>
+                </div>
+                <div class="hero-symbol">R</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Total Drivers</span>
+                    <h2 id="total-drivers">0</h2>
+                    <small>Registered drivers</small>
+                </div>
+                <div class="stat-card">
+                    <span>Total Vehicles</span>
+                    <h2 id="total-vehicles">0</h2>
+                    <small>Registered vehicles</small>
+                </div>
+                <div class="stat-card">
+                    <span>Total Bookings</span>
+                    <h2 id="total-bookings">0</h2>
+                    <small>All customer bookings</small>
+                </div>
+                <div class="stat-card">
+                    <span>Completed Trips</span>
+                    <h2 id="completed-trips">0</h2>
+                    <small>Successfully completed</small>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Bookings</h2>
+                        <p>Latest customer trip details</p>
+                    </div>
+                    <button class="outline-btn" onclick="showPage('history')">
+                        View All
+                    </button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Destination</th>
+                                <th>Vehicle</th>
+                                <th>Fare</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboard-bookings"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- DRIVER REGISTRATION -->
+        <section class="page" id="drivers">
+            <div class="section-heading">
+                <div>
+                    <h2>Driver Registration</h2>
+                    <p>Register and manage your taxi drivers.</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Add New Driver</h3>
+                <form id="driver-form" class="form-grid">
+                    <div class="form-group">
+                        <label>Driver Name</label>
+                        <input type="text" id="driver-name" placeholder="Enter driver name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="driver-phone" placeholder="10-digit mobile number"
+                               pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Driving Licence Number</label>
+                        <input type="text" id="driver-license" placeholder="Enter licence number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Experience (Years)</label>
+                        <input type="number" id="driver-experience" min="0" placeholder="Years" required>
+                    </div>
+                    <button type="submit" class="primary-btn">+ Register Driver</button>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <h3>Registered Drivers</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Licence</th>
+                                <th>Experience</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driver-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- VEHICLE MANAGEMENT -->
+        <section class="page" id="vehicles">
+            <div class="section-heading">
+                <div>
+                    <h2>Vehicle Management</h2>
+                    <p>Manage your taxi fleet and vehicle categories.</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Add New Vehicle</h3>
+                <form id="vehicle-form" class="form-grid">
+                    <div class="form-group">
+                        <label>Vehicle Number</label>
+                        <input type="text" id="vehicle-number" placeholder="TN 00 AB 0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Vehicle Model</label>
+                        <input type="text" id="vehicle-model" placeholder="Enter model" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Vehicle Category</label>
+                        <select id="vehicle-category" required>
+                            <option value="">Select category</option>
+                            <option value="Mini">Mini</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Luxury">Luxury</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="primary-btn">+ Add Vehicle</button>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <h3>Registered Vehicles</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vehicle No.</th>
+                                <th>Model</th>
+                                <th>Category</th>
+                                <th>Rate / KM</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehicle-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CUSTOMER BOOKING -->
+        <section class="page" id="bookings">
+            <div class="section-heading">
+                <div>
+                    <h2>Customer Booking</h2>
+                    <p>Book a comfortable ride with RIDO TAXI.</p>
+                </div>
+            </div>
+
+            <div class="content-card booking-card">
+                <h3>New Taxi Booking</h3>
+                <form id="booking-form" class="form-grid">
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <input type="text" id="customer-name" placeholder="Enter customer name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="customer-phone" pattern="[0-9]{10}"
+                               placeholder="10-digit mobile number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pickup Location</label>
+                        <input type="text" id="pickup" placeholder="Enter pickup location" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Drop Location</label>
+                        <input type="text" id="drop" placeholder="Enter destination" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Travel Distance (KM)</label>
+                        <input type="number" id="distance" min="0.1" step="0.1"
+                               placeholder="Enter distance" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Vehicle Category</label>
+                        <select id="booking-category" required>
+                            <option value="">Choose vehicle</option>
+                            <option value="Mini">Mini</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Luxury">Luxury</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Charges (₹)</label>
+                        <input type="number" id="extra-charge" min="0" value="0" step="0.01">
+                    </div>
+
+                    <div class="fare-preview">
+                        <span>Estimated Fare</span>
+                        <h2 id="estimated-fare">₹0.00</h2>
+                        <small>Based on distance and selected category</small>
+                    </div>
+
+                    <button type="submit" class="primary-btn">Confirm Booking →</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- DRIVER AND VEHICLE ALLOCATION -->
+        <section class="page" id="allocation">
+            <div class="section-heading">
+                <div>
+                    <h2>Driver & Vehicle Allocation</h2>
+                    <p>View assigned drivers and vehicles for each trip.</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Trip Allocation Details</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer</th>
+                                <th>Driver</th>
+                                <th>Vehicle</th>
+                                <th>Distance</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allocation-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRIP HISTORY -->
+        <section class="page" id="history">
+            <div class="section-heading">
+                <div>
+                    <h2>Trip History & Reports</h2>
+                    <p>Track completed and cancelled taxi trips.</p>
+                </div>
+                <button class="outline-btn" onclick="exportReport()">↓ Export CSV</button>
+            </div>
+
+            <div class="content-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer</th>
+                                <th>Driver</th>
+                                <th>Route</th>
+                                <th>Distance</th>
+                                <th>Fare</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Driver-wise Trip Summary</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Driver Name</th>
+                                <th>Total Trips</th>
+                                <th>Completed Trips</th>
+                                <th>Total Earnings</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driver-summary"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 RIDO TAXI. All Rights Reserved.</p>
+            <span>Designed for smarter journeys.</span>
+        </footer>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
